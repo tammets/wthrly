@@ -20,12 +20,48 @@ h1 {
 }
 
 .current-weather {
-    background-color: #e0f7fa;
+    background: rgba(41, 39, 75, 0.855);
     padding: 20px;
     margin-bottom: 20px;
-    border-radius: 10px;
-    text-align: center;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     width: 90%;
     max-width: 800px;
+    color: #fff;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+.weather-icon img {
+    width: 100px;
+    height: 100px;
+}
+
+.weather-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.weather-details h2 {
+    font-size: 2rem;
+    margin: 10px 0;
+}
+
+.weather-details .temperature {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.weather-details p {
+    margin: 5px 0;
+    font-size: 1.2rem;
+}
+
+.weather-description {
+    font-size: 1rem;
+    font-style: italic;
+}

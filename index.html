@@ -11,10 +11,22 @@
 <body>
     <h1>Pudisoo Weekly Weather</h1>
 
-    <!-- Placeholder for current weather information -->
-    <div id="current-weather" class="current-weather">
-        <!-- Current weather data will be injected here by JavaScript -->
+<!-- Placeholder for current weather information -->
+<div id="current-weather" class="current-weather">
+    <div class="weather-icon">
+        <img id="weather-icon" src="" alt="Weather Icon">
     </div>
+    
+    <div class="weather-details">
+        <h2 id="weather-condition">--</h2>
+        <p class="temperature"><span id="temperature">--</span>°C</p>
+        <p id="weather-description">--</p>
+        <p>Wind: <span id="wind-speed">--</span> m/s</p>
+        <p>Precipitation: <span id="precipitation">--</span> mm</p>
+        <p>Cloud Cover: <span id="cloud-cover">--</span>%</p>
+        <p>Daytime: <span id="daytime">--</span></p>
+    </div>
+</div>
 
     <div class="chart-container">
         <canvas id="temperatureChart"></canvas>

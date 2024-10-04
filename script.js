@@ -156,22 +156,128 @@ fetch(apiUrl)
         document.body.innerHTML += '<p>Error fetching weather data. Please try again later.</p>';
     });
 
+// Function to get the icon path based on the WMO weather code
+function getWeatherIconPath(weatherCode) {
+    switch (weatherCode) {
+        case 0:
+            return 'icons/clear-sky.png';
+        case 1:
+        case 2:
+        case 3:
+            return 'icons/partly-cloudy.png';
+        case 45:
+        case 48:
+            return 'icons/fog.png';
+        case 51:
+        case 53:
+        case 55:
+            return 'icons/drizzle.png';
+        case 56:
+        case 57:
+            return 'icons/freezing-drizzle.png';
+        case 61:
+        case 63:
+        case 65:
+            return 'icons/rain.png';
+        case 66:
+        case 67:
+            return 'icons/freezing-rain.png';
+        case 71:
+        case 73:
+        case 75:
+            return 'icons/snowfall.png';
+        case 77:
+            return 'icons/snow-grains.png';
+        case 80:
+        case 81:
+        case 82:
+            return 'icons/rain-showers.png';
+        case 85:
+        case 86:
+            return 'icons/snow-showers.png';
+        case 95:
+            return 'icons/thunderstorm.png';
+        case 96:
+        case 99:
+            return 'icons/thunderstorm-hail.png';
+        default:
+            return 'icons/unknown.png'; // Default icon if code is not recognized
+    }
+}
+
+// Function to get the weather description based on the WMO weather code
+function getWeatherDescription(weatherCode) {
+    switch (weatherCode) {
+        case 0:
+            return 'Clear Sky';
+        case 1:
+        case 2:
+        case 3:
+            return 'Partly Cloudy / Overcast';
+        case 45:
+        case 48:
+            return 'Fog';
+        case 51:
+        case 53:
+        case 55:
+            return 'Drizzle';
+        case 56:
+        case 57:
+            return 'Freezing Drizzle';
+        case 61:
+        case 63:
+        case 65:
+            return 'Rain';
+        case 66:
+        case 67:
+            return 'Freezing Rain';
+        case 71:
+        case 73:
+        case 75:
+            return 'Snowfall';
+        case 77:
+            return 'Snow Grains';
+        case 80:
+        case 81:
+        case 82:
+            return 'Rain Showers';
+        case 85:
+        case 86:
+            return 'Snow Showers';
+        case 95:
+            return 'Thunderstorm';
+        case 96:
+        case 99:
+            return 'Thunderstorm with Hail';
+        default:
+            return 'Unknown Weather Condition';
+    }
+}
+
 // Function to display current weather information
 function displayCurrentWeather(currentData) {
     const weatherContainer = document.getElementById('current-weather');
+
+    // Update elements with current weather data
+    document.getElementById('temperature').textContent = currentData.temperature || '--';
+    document.getElementById('wind-speed').textContent = currentData.windspeed || '--';
+    document.getElementById('precipitation').textContent = currentData.precipitation || '0';
+    document.getElementById('cloud-cover').textContent = currentData.cloudcover || '0';
+    document.getElementById('daytime').textContent = currentData.is_day ? 'Yes' : 'No';
+
+    // Get the weather icon path and description based on the WMO weather code
+    const weatherCode = currentData.weathercode;
+    const iconPath = getWeatherIconPath(weatherCode);
+    const description = getWeatherDescription(weatherCode);
     
-    // Ensure currentData contains the necessary properties
-    if (currentData) {
-        weatherContainer.innerHTML = `
-            <h2>Current Weather</h2>
-            <p>Temperature: ${currentData.temperature} °C</p>
-            <p>Precipitation: ${currentData.precipitation || 0} mm</p>
-            <p>Cloud Cover: ${currentData.cloudcover || 0} %</p>
-            <p>Wind Speed: ${currentData.windspeed} m/s</p>
-            <p>Wind Gusts: ${currentData.windgusts || 0} m/s</p>
-            <p>Daytime: ${currentData.is_day ? 'Yes' : 'No'}</p>
-        `;
-    } else {
-        weatherContainer.innerHTML = '<p>Error fetching current weather data. Please try again later.</p>';
-    }
+    // Set the weather icon
+    const iconElement = document.getElementById('weather-icon');
+    iconElement.src = iconPath;
+    iconElement.alt = description;
+
+    // Set the weather condition text
+    document.getElementById('weather-condition').textContent = description;
+
+    // Set a description below the weather condition if needed
+    document.getElementById('weather-description').textContent = `Current weather: ${description}`;
 }
