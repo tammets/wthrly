@@ -1,4 +1,4 @@
-const apiUrl = 'https://api.open-meteo.com/v1/forecast?latitude=59.5175&longitude=25.5631&current_weather=true&current=temperature_2m,is_day,precipitation,rain,cloud_cover,wind_speed_10m,wind_gusts_10m&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&timezone=auto&wind_speed_unit=ms';
+const apiUrl = 'https://api.open-meteo.com/v1/forecast?latitude=59.5175&longitude=25.5631&current_weather=true&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&timezone=auto&wind_speed_unit=ms';
 
 // Fetch weather data from the API
 fetch(apiUrl)
@@ -158,16 +158,20 @@ fetch(apiUrl)
 
 // Function to display current weather information
 function displayCurrentWeather(currentData) {
-    const weatherContainer = document.createElement('div');
-    weatherContainer.className = 'current-weather';
-    weatherContainer.innerHTML = `
-        <h2>Current Weather</h2>
-        <p>Temperature: ${currentData.temperature_2m} °C</p>
-        <p>Precipitation: ${currentData.precipitation} mm</p>
-        <p>Cloud Cover: ${currentData.cloud_cover} %</p>
-        <p>Wind Speed: ${currentData.wind_speed_10m} m/s</p>
-        <p>Wind Gusts: ${currentData.wind_gusts_10m} m/s</p>
-        <p>Daytime: ${currentData.is_day ? 'Yes' : 'No'}</p>
-    `;
-    document.body.prepend(weatherContainer);
+    const weatherContainer = document.getElementById('current-weather');
+    
+    // Ensure currentData contains the necessary properties
+    if (currentData) {
+        weatherContainer.innerHTML = `
+            <h2>Current Weather</h2>
+            <p>Temperature: ${currentData.temperature} °C</p>
+            <p>Precipitation: ${currentData.precipitation || 0} mm</p>
+            <p>Cloud Cover: ${currentData.cloudcover || 0} %</p>
+            <p>Wind Speed: ${currentData.windspeed} m/s</p>
+            <p>Wind Gusts: ${currentData.windgusts || 0} m/s</p>
+            <p>Daytime: ${currentData.is_day ? 'Yes' : 'No'}</p>
+        `;
+    } else {
+        weatherContainer.innerHTML = '<p>Error fetching current weather data. Please try again later.</p>';
+    }
 }
