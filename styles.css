@@ -18,3 +18,14 @@ h1 {
     max-width: 800px;
     margin-bottom: 40px;
 }
+
+.current-weather {
+    background-color: #e0f7fa;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 90%;
+    max-width: 800px;
+}
+
